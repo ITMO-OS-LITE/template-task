@@ -3,6 +3,7 @@ run-name: Testing @${{ github.repository }} by @${{ github.actor }}
 
 on:
   push:
+  workflow_dispatch:
 
 env:
   TASK: hello
