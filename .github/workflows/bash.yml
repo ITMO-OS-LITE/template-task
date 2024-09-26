@@ -1,0 +1,28 @@
+name: Bash Tests
+run-name: Testing @${{ github.repository }} by @${{ github.actor }}
+
+on:
+  push:
+
+env:
+  TASK: hello
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+
+    steps:
+      - name: Download student solutions
+        uses: actions/checkout@v4
+        with:
+          path: src
+          ref: master
+
+      - name: Download tests
+        uses: actions/checkout@v4
+        with:
+          repository: ITMO-OS-LITE/public-tests
+
+      - name: Test solution
+        run: python3 tmain.py --suite ${{ env.TASK }}
