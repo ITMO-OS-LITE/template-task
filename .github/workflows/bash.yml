@@ -16,16 +16,16 @@ jobs:
     timeout-minutes: 4
 
     steps:
-      - name: Download student solutions
-        uses: actions/checkout@v4
-        with:
-          path: src
-          ref: master
-
       - name: Download tests
         uses: actions/checkout@v4
         with:
           repository: ITMO-OS-LITE/public-tests
+          ref: master
+
+      - name: Download student solutions
+        uses: actions/checkout@v4
+        with:
+          path: src
           ref: master
 
       - name: Test solution
