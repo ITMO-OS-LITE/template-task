@@ -1,5 +1,4 @@
-name: Bash Tests
-run-name: Testing ${{ github.repository }} by @${{ github.actor }}
+name: Hello World Tests
 
 on:
   push:
@@ -29,8 +28,4 @@ jobs:
           ref: master
 
       - name: Test solution
-        shell: bash
-        run: |
-          ls -al
-          ls -al src/
-          python3 tmain.py --suite ${{ env.TASK }}
+        run: python3 tmain.py --suite ${{ env.TASK }}
