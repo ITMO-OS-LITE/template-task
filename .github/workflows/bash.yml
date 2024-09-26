@@ -1,5 +1,5 @@
 name: Bash Tests
-run-name: Testing @${{ github.repository }} by @${{ github.actor }}
+run-name: Testing ${{ github.repository }} by @${{ github.actor }}
 
 on:
   push:
@@ -9,7 +9,9 @@ env:
   TASK: hello
 
 jobs:
-  testing:
+  buildtest:
+    name: BuildTest
+
     runs-on: ubuntu-latest
     timeout-minutes: 4
 
@@ -24,6 +26,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ITMO-OS-LITE/public-tests
+          ref: master
 
       - name: Test solution
-        run: python3 tmain.py --suite ${{ env.TASK }}
+        shell: bash
+        run: |
+          ls -al
+          ls -al src/
+          python3 tmain.py --suite ${{ env.TASK }}
