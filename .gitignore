@@ -703,3 +703,13 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# CMake, Ninja, Makefile generated files.
+*.txt
+*.ninja
+*.ninja_*
+
+!CMakeLists.txt
+
+Makefile
+CMakeFiles/
