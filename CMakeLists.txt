@@ -7,9 +7,8 @@ No build type selected. You need to pass --preset=<type> in order to configure C
 ")
 ENDIF()
 
-SET(CMAKE_C_STANDARD 99)
-SET(CMAKE_C_STANDARD_REQUIRED ON)
 SET(CMAKE_C_EXTENSIONS OFF)
+SET(CMAKE_C_FLAGS "-std=gnu99 ${CMAKE_C_FLAGS}")
 
 OPTION(USE_SANITIZER "Enable to build with target sanitizer" "no sanitizer")
 
