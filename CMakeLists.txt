@@ -10,7 +10,8 @@ ENDIF()
 SET(CMAKE_C_EXTENSIONS OFF)
 SET(CMAKE_C_FLAGS "-std=gnu99 ${CMAKE_C_FLAGS}")
 
-OPTION(USE_SANITIZER "Enable to build with target sanitizer" "no sanitizer")
+OPTION(USE_SANITIZER "Enable to build with most available sanitizers" OFF)
+OPTION(USE_THREAD_SANITIZER "Enable to build with ThreadSanitizer" OFF)
 
 FUNCTION(ADD_EXECUTABLE_WITH_SANITIZER TARGET_NAME FILE_NAME)
   # Create the executable.
@@ -20,18 +21,14 @@ FUNCTION(ADD_EXECUTABLE_WITH_SANITIZER TARGET_NAME FILE_NAME)
   TARGET_COMPILE_OPTIONS(${TARGET_NAME} PRIVATE -Wall -Wextra -Wpedantic)
 
   # Setup sanitizer(s).
-  IF (USE_SANITIZER STREQUAL "no sanitizer")
-    MESSAGE(STATUS "No sanitizer enabled")
-  ELSE()
-    IF (USE_SANITIZER STREQUAL "Many")
-    MESSAGE(STATUS "Enabling AddressSanitizer, LeakSanitizer and UndefinedBehaviorSanitizer")
-      TARGET_COMPILE_OPTIONS(${TARGET_NAME} PUBLIC -fsanitize=address,leak,undefined)
-      TARGET_LINK_OPTIONS(${TARGET_NAME} PUBLIC -fsanitize=address,leak,undefined)
-    ELSEIF(USE_SANITIZER STREQUAL "Thread")
-    MESSAGE(STATUS "Enabling ThreadSanitizer")
-      TARGET_COMPILE_OPTIONS(${TARGET_NAME} PUBLIC -fsanitize=thread)
-      TARGET_LINK_OPTIONS(${TARGET_NAME} PUBLIC -fsanitize=thread)
-    ENDIF()
+  if (USE_SANITIZER)
+    TARGET_COMPILE_OPTIONS(${TARGET_NAME} PUBLIC -fsanitize=address,leak,undefined -fno-sanitize-recover=all)
+    TARGET_LINK_OPTIONS(${TARGET_NAME} PUBLIC -fsanitize=address,leak,undefined)
+  ENDIF()
+
+  IF (USE_THREAD_SANITIZER)
+    TARGET_COMPILE_OPTIONS(${TARGET_NAME} PUBLIC -fsanitize=thread -fno-sanitize-recover=all)
+    TARGET_LINK_OPTIONS(${TARGET_NAME} PUBLIC -fsanitize=thread)
   ENDIF()
 ENDFUNCTION()
 

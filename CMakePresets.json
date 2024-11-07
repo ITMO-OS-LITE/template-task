@@ -28,11 +28,11 @@
             }
         },
         {
-            "name": "ManySanitized",
+            "name": "Sanitized",
             "description": "Debug build with AddressSanitizer, LeakSanitizer and UndefinedBehaviorSanitizer enabled",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-                "USE_SANITIZER": "Many"
+                "USE_SANITIZER": "ON"
             }
         },
         {
@@ -40,7 +40,7 @@
             "description": "Debug build with ThreadSanitizer enabled",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-                "USE_SANITIZER": "Thread"
+                "USE_THREAD_SANITIZER": "ON"
             }
         }
     ]
