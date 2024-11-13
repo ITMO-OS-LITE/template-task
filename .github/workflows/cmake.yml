@@ -32,9 +32,7 @@ jobs:
         matrix:
           toolchain:
             - { name: Clang 18, compiler: clang-18 }
-            - { name: Clang 17, compiler: clang-17 }
             - { name: GCC 11,   compiler: gcc-11   }
-            - { name: GCC 10,   compiler: gcc-10   }
 
           buildtype:
             - Release
